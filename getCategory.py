@@ -2,24 +2,19 @@ from bs4 import BeautifulSoup as bs
 from pprint import pprint
 import requests
 
-html = requests.get('http://www.yes24.com/Mall/Main/Book/001?CategoryNumber=001')
+html = requests.get('http://www.yes24.com/24/category/bestseller')
 # pprint(html.text)
 
 soup = bs(html.text,'html.parser')
 
-#### get cate2Name
-cateList = soup.find('div',{'class':'cateLi cateLiTp_1'})
-cate2Name=cateList.findAll('em',{'class':'txt'})
+#### get all of menu
+html_menu = soup.find('div',{'id':'bestMenu'})
+#print(html_menu)
 
-for i in range(len(cate2Name)):
-    print(str(i).zfill(3),cate2Name[i].text)
-
-#### get cate2Code
+cate_all=html_menu.findAll('a')
+#print(cate_all)
 
 
-#print(fine_dust)
-
-# f=open("data.txt","w")
-# f.write(str(data1))
-# f.close()
-
+for data in cate_all:
+#     #print(str(i).zfill(3),cate2Name[i].text)
+     print(data)
