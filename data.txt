@@ -1,0 +1,32 @@
+Book
+    code(PK)
+    ISBN
+    title
+    author
+    page
+    publishdate
+
+Category
+    code(PK)
+    content
+
+Bookcover
+    bookcode
+    image
+
+Member
+    memberid(PK)
+    memberpw
+    email
+    nickname
+    state(0,1,2,99)
+
+Member_Book
+    memberid(FK)
+    bookcode(FK)
+    quort
+
+Book_Category
+    bookcode(FK)
+    categorycode(FK)
+    

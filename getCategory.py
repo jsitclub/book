@@ -5,8 +5,9 @@ import requests
 #국내소설,해외소설
 wfs=['001','002']
 result=["001:국내소설","002:해외소설"]
+
 urlYes='http://www.yes24.com/24/Category/Display/'
-removeStr='24/Category/Display/'
+removeStr='24/Category/Display/'            #링크에서 코드만 추출할때 사용
 
 
 def GetCategory(category):
