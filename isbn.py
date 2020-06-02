@@ -1,12 +1,15 @@
-class isbn():
-    def getCheckCode(self,isbn):
+class clsISBN():
+    def __init__(self,isbnNo):
+        self.isbnNo = isbnNo
+        
+    def __getCheckCode(self,isbnNo):
         sum=0
         #12자리계산후 13번째와 확인
         for i in range(12):         
             if i%2==0:
-                sum+=int(isbn[i])
+                sum+=int(isbnNo[i])
             else:
-                sum+=int(isbn[i])*3
+                sum+=int(isbnNo[i])*3
         
         if sum%10==0:
             return '0'
@@ -14,29 +17,25 @@ class isbn():
             return str(10-sum%10)
         
 
-    def checkISBN13(self,isbn):
-        if len(isbn)!=13:
+    def checkISBN(self):
+        if len(self.isbnNo)!=13:
             return False
-        code=self.getCheckCode(isbn)
-        if code==isbn[12]:
+        code=self.__getCheckCode(self.isbnNo)
+        if code==self.isbnNo[12]:
             return True
         else:
             return False
 
-    def convertToISBN13(self,isbn):
-        if len(isbn)!=10:
+    def __convertToISBN13(self):
+        if len(self.isbnNo)!=10:
             return ""
 
-        temp='978'+isbn
-        return temp[:12]+self.getCheckCode(temp)
+        temp='978'+self.isbnNo
+        return temp[:12]+self.__getCheckCode(temp)
         
 
 
-x=isbn()
+x13=clsISBN("9788908070127")
+print(x13.checkISBN())
 
-num="8908070125"
-
-
-num=x.convertToISBN13(num)
-print(num)
-print(x.checkISBN13(num))
+x10=clsISBN("8946410450")
