@@ -1,18 +1,23 @@
-Book
+Book_Main
     code(PK)
-    ISBN
     title
     author
+    ISBN
+
+Book_Sub
+    bookcode()
+    publisher
     page
     publishdate
+
+Book_cover
+    bookcode
+    image    
+
 
 Category
     code(PK)
     content
-
-Bookcover
-    bookcode
-    image
 
 Member
     memberid(PK)
@@ -24,7 +29,9 @@ Member
 Member_Book
     memberid(FK)
     bookcode(FK)
-    quort
+    state(10:위시 20:읽는중 50:읽었음 3:)
+    number(읽은 횟수)
+    quort(좋았던 문장)
 
 Book_Category
     bookcode(FK)

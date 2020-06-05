@@ -24,6 +24,8 @@ def CreateBookData(isbnNo):
 
     title = soup.find('ul',{"class":'basic'}).find('dt').find('a').text
     print("제목 : ",title)
+
+    #db에 생성 id,제목, isbn 
     
 
     # 상세 페이지내용
