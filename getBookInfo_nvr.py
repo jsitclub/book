@@ -19,31 +19,48 @@ def CreateBookData(isbnNo):
     html = requests.get(url)
     soup = bs(html.text,'html.parser')
     
-    newurl = soup.find('ul',{"class":'basic'}).find('dt').find('a')['href']
-    #print(newurl)
-
     title = soup.find('ul',{"class":'basic'}).find('dt').find('a').text
-    print("제목 : ",title)
-
-    #db에 생성 id,제목, isbn 
+    newurl = soup.find('ul',{"class":'basic'}).find('dt').find('a')['href']
     
-
     # 상세 페이지내용
     html = requests.get(newurl)
     soup = bs(html.text,'html.parser')
     
-    img = soup.find('div',{"class":'thumb_type'}).find('a').find('img')['src']
-    print("이미지 : ",img)
-
-    author=soup.find('div',{"class":'book_info_inner'}).findAll("a")
-    for content in author:
+    imgurl = soup.find('div',{"class":'thumb_type'}).find('a').find('img')['src']
+    
+    #기타정보(page,date)
+    data=soup.find('div',{"class":'book_info_inner'}).findAll("a")
+    author=""
+    publisher=''
+    translator=""
+    for content in data:
         if "author" in str(content):
-            print('저자 : ',content.text)
+            author=content.text            
         elif "publisher" in str(content):
-            print('출판사 : ',content.text)
+            publisher=content.text
         elif "translator" in str(content):
-            print('번역 : ',content.text)
+            translator=content.text
 
+    #경우에 따라 줄수가 바뀌므로 1~4번째줄에서 출간일, 페이지 갖고오기
+    data = soup.find('div',{'class':'book_info_inner'}).findAll('div')
+    for i in range(4):
+        if "저자" in  data[i].text:
+            #출간일
+            publishDate=data[i].text.split("|")[-1]
+        elif "페이지" in  data[i].text:
+            #페이지
+            page=data[i].text.split("|")[0].split()[1]
+    
+    
+    print("이미지 : ",imgurl)
+    print("제목 : ",title)
+    print("저자 : ",author)
+    print("출판사 : ",publisher)
+    print("번역 : ",translator)
+    print('page:',page)
+    print('date:',publishDate)
+
+    
 
     #result = [t.text for t in cateList]     # another method
 
@@ -52,4 +69,6 @@ def CreateBookData(isbnNo):
 #9791160504439
 #9788960515987
 #9788931414370
-CreateBookData("9788970127248")
+#9788970127248
+#9791197016806
+CreateBookData("9788931414370")
