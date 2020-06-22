@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bs 
 import requests
 
+
 result=[]
 TargetURL="https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query="
 
