@@ -3,11 +3,8 @@ Book_Main
     title
     author
     ISBN
-
-Book_Sub
-    bookcode()
-    publisher
     page
+    publisher
     publishdate
 
 Book_cover

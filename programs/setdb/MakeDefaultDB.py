@@ -7,6 +7,7 @@ conn= MySQLdb.connect(
     passwd='',
     host='localhost',
     db='test_book',
+    charset='utf8',
 )
 
 print("주의 !! 모든 데이터가 지워집니다.")
@@ -17,7 +18,8 @@ if ans.upper()!='YES':
     exit()
 
 cur=conn.cursor()
-#cur.execute('drop table Book_Main')
+
+### CREATE DATABASE <dbname> CHARACTER SET utf8;
 
 stmt = "SHOW TABLES LIKE 'Book_Main';"
 cur.execute(stmt)
@@ -28,32 +30,32 @@ if result:
 cur.execute('''create table Book_Main
                 (code varchar(15) primary key
                 ,title varchar(20)
-                ,author varchar(10)
+                ,author varchar(20)
+                ,translator varchar(20)
                 ,isbn varchar(13)
-                ,datetime datetime);
+                ,page int
+                ,publisher varchar(20)
+                ,publishdate datetime
+                ,datetime datetime)
+                 CHARACTER SET utf8 COLLATE utf8_general_ci;
             ''')
-
+conn.commit()
 print("Book_Main Table made.")
 
-stmt = "SHOW TABLES LIKE 'Category';"
-cur.execute(stmt)
-result = cur.fetchone()
-if result:
-    cur.execute('drop table Category')
+# stmt = "SHOW TABLES LIKE 'Category';"
+# cur.execute(stmt)
+# result = cur.fetchone()
+# if result:
+#     cur.execute('drop table Category')
     
-cur.execute('''create table Category 
-                (code varchar(15) primary key
-                ,category varchar(50)
-                ,datetime datetime)
-            ''')
-
 # cur.execute('''create table Category 
 #                 (code varchar(15) primary key
 #                 ,category varchar(50)
 #                 ,datetime datetime)
-#                 CHARACTER SET utf8 COLLATE utf8_general_ci;
+#                  CHARACTER SET utf8 COLLATE utf8_general_ci;
 #             ''')
 
+conn.commit()
 print("Category Table made.")
 
 stmt = "SHOW TABLES LIKE 'test';"
@@ -65,9 +67,10 @@ if result:
 cur.execute('''create table test
                 (code varchar(15) primary key
                 ,category varchar(50)
-                ,datetime datetime);
+                ,datetime datetime)
+                CHARACTER SET utf8 COLLATE utf8_general_ci;
             ''')
-
+conn.commit()
 print("test Table made.")
 
 
