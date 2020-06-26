@@ -15,5 +15,11 @@ class Book(models.Model):
     
 
 class Category(models.Model):
-    code=models.CharField(max_length=15,unique=True)
+    code=models.CharField(max_length=15,unique=True,null=False)
     content=models.CharField(max_length=50)  
+
+
+class Book_Cate(models.Model):
+    bookcode=models.IntegerField(null=False)
+    catecode=models.CharField(max_length=15)
+    

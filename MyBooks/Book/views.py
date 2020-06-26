@@ -1,4 +1,3 @@
-import time
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
@@ -14,26 +13,16 @@ def index(request):
 
 def setCategory(request):
     category=GetCategory()
-    
-    # html="<html><ul>"
-    # for key in category:
-    #     html+="<li>"
-    #     html+=category[key]+" : "+c.value()
-    #     html+="</li>"
-    # html+="</ul></html>"
-    # return HttpResponse(html)
-    
     for key in category:
-        cate=Category(
-            code=key,
-            content=category[key])
+        cate=Category(code=key,content=category[key])
         cate.save()
-    return HttpResponse("완료")
+    return HttpResponse("카테고리 저장 완료")
+
 
 def setBookInfo(request):
     result=[]
     TargetURL="https://book.naver.com/search/search.nhn?sm=sta_hty.book&sug=&where=nexearch&query="
-    isbnNo='9791197016806'
+    isbnNo='9788970127248'
     
     #9791160504439
     #9788960515987
@@ -45,16 +34,12 @@ def setBookInfo(request):
     # todo: isbn 번호 검증
     # a=clsISBN("9788954650700")
     # print(a.checkISBN("9788954650700"))
-
-    
-    t=time.time()
+   
     
     # isbn 검색결과
     url =TargetURL + isbnNo
     html = requests.get(url)
     soup = bs(html.text,'html.parser')
-    
-    print(time.time()-t)
     
     title = soup.find('ul',{"class":'basic'}).find('dt').find('a').text
     newurl = soup.find('ul',{"class":'basic'}).find('dt').find('a')['href']
@@ -72,17 +57,17 @@ def setBookInfo(request):
     translator=""
     for content in data:
         if "author" in str(content):
-            author=content.text            
+            author+=content.text+","            
         elif "publisher" in str(content):
             publisher=content.text
         elif "translator" in str(content):
-            translator=content.text
+            translator+=content.text+","  
 
     #경우에 따라 줄수가 바뀌므로 1~4번째줄에서 출간일, 페이지 갖고오기
     data = soup.find('div',{'class':'book_info_inner'}).findAll('div')
     page=""
     publishDate=""
-    for i in range(4):
+    for i in range(len(data)):
         if "저자" in  data[i].text:
             #출간일
             publishDate=data[i].text.split("|")[-1]
@@ -90,7 +75,21 @@ def setBookInfo(request):
             #페이지
             page=data[i].text.split("|")[0].split()[1]
         
-   
+    book=Book(
+        title=title,
+        author=author,
+        translator=translator,
+        isbn=isbnNo,
+        page=page,
+        publisher=publisher,
+        publishdate=publishDate.replace(".","-"),
+        )
+    book.save()
+    
+    
+    bookid = Book.objects.get(isbn=isbnNo).id
+    print(bookid)
+    
     #분류정보(category)
     data=soup.find('ul',{"class":'history'}).findAll("a")
     
@@ -101,11 +100,11 @@ def setBookInfo(request):
     s=sorted(s)
     for i in range(len(s)-1):
         if s[i] not in s[i+1]:
-            print(s[i])
-    print(s[-1])
-        
-    
-    
+            temp=Book_Cate(bookcode=bookid,catecode=s[i])
+            temp.save()
+    temp=Book_Cate(bookcode=bookid,catecode=s[-1])
+    temp.save()
+       
     
     
     html="<html><ul>"
@@ -117,8 +116,8 @@ def setBookInfo(request):
     html+="<li>page: "+page+"</li>"
     html+="<li>date: "+publishDate+"</li>"
     html+="</ul></html>"
-      
-    print(time.time()-t)
+    
+    
     return HttpResponse(html)
   
     

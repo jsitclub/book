@@ -13,9 +13,9 @@ BookCover
     bookcode
     image    
 
-Book&Category
+Book_Cate
     bookcode(FK)
-    categorycode(FK)
+    catecode(FK)
     
 Category
     code(PK)

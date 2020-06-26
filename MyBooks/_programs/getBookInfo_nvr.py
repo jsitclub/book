@@ -22,35 +22,35 @@ def CreateBookData(isbnNo):
     html = requests.get(newurl)
     soup = bs(html.text,'html.parser')
     
-    # imgurl = soup.find('div',{"class":'thumb_type'}).find('a').find('img')['src']
+    imgurl = soup.find('div',{"class":'thumb_type'}).find('a').find('img')['src']
     
     
-    # #기타정보(page,date)
-    # data=soup.find('div',{"class":'book_info_inner'}).findAll("a")
-    # author=[]    
-    # translator=[]
-    # publisher=""
+    #기타정보(page,date)
+    data=soup.find('div',{"class":'book_info_inner'}).findAll("a")
+    author=""    
+    translator=""
+    publisher=""
     
-    # for content in data:
-    #     if "author" in str(content):
-    #         author.append(content.text)
-    #     elif "publisher" in str(content):
-    #         publisher=content.text
-    #     elif "translator" in str(content):
-    #         translator.append(content.text)
+    for content in data:
+        if "author" in str(content):
+            author+=content.text+","            
+        elif "publisher" in str(content):
+            publisher=content.text
+        elif "translator" in str(content):
+            translator+=content.text+","  
 
-    # #경우에 따라 줄수가 바뀌므로 1~4번째줄에서 출간일, 페이지 갖고오기
-    # data = soup.find('div',{'class':'book_info_inner'}).findAll('div')
-    # publishDate=""
-    # page=""
+    #경우에 따라 줄수가 바뀌므로 1~4번째줄에서 출간일, 페이지 갖고오기
+    data = soup.find('div',{'class':'book_info_inner'}).findAll('div')
+    publishDate=""
+    page=""
     
-    # for i in range(len(data)):
-    #     if "저자" in  data[i].text:
-    #         #출간일
-    #         publishDate=data[i].text.split("|")[-1]
-    #     elif "페이지" in  data[i].text:
-    #         #페이지
-    #         page=data[i].text.split("|")[0].split()[1]
+    for i in range(len(data)):
+        if "저자" in  data[i].text:
+            #출간일
+            publishDate=data[i].text.split("|")[-1]
+        elif "페이지" in  data[i].text:
+            #페이지
+            page=data[i].text.split("|")[0].split()[1]
     
     
     
@@ -71,13 +71,13 @@ def CreateBookData(isbnNo):
     print(s[-1])
               
     
-#     print("이미지 : ",imgurl)
-#     print("제목 : ",title)
-#     print("저자 : ",author)
-#     print("출판사 : ",publisher)
-#     print("번역 : ",translator)
-#     print("page:",page)
-#     print("date:",publishDate)
+    print("이미지 : ",imgurl)
+    print("제목 : ",title)
+    print("저자 : ",author)
+    print("출판사 : ",publisher)
+    print("번역 : ",translator)
+    print("page:",page)
+    print("date:",publishDate)
 
     
 
@@ -91,7 +91,7 @@ def CreateBookData(isbnNo):
 #9788970127248
 #9791197016806
 #9791196977498
-CreateBookData("9791196977498")
+CreateBookData("9788960515987")
 
 
 
