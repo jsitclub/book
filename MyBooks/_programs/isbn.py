@@ -1,8 +1,7 @@
 class clsISBN():
     def __init__(self,isbnNo):
         self.isbnNo = isbnNo
-
-        if isbnNo.isnumeric
+        #if isbnNo.isnumeric
 
     def checkISBN(self):
         if len(self.isbnNo)!=13:

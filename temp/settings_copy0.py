@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e2n(m=^1(vwgr^qk3&ae+lbj!(sxm5+7&oo-60uk6%tr7xys-8'
+SECRET_KEY = 'is7p4%g!xeql4!@ga34l=o09r2lunr_90^lytvt%gt#@zykb$h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['book-vhnep.run.goorm.io']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Book',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +83,6 @@ DATABASES = {
         'PORT':'80'
     }
 }
-
 
 
 # Password validation

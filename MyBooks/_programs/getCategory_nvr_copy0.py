@@ -1,19 +1,11 @@
 from bs4 import BeautifulSoup as bs 
 import requests
-
-import MySQLdb
-
-conn= MySQLdb.connect(
-    user='root',
-    passwd='',
-    host='localhost',
-    db='test_book',
-    charset='utf8',
-)
+from DBConn import Db
 
 
+conn= Db.connect()
 cur=conn.cursor()
-
+print("ok")
 result=[]
 TargetURL='https://book.naver.com/'
 
