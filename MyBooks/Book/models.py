@@ -11,9 +11,14 @@ class Book(models.Model):
     publisher=models.CharField(max_length=50, null=True,default='')
     publishdate=models.DateField(null=True)
     created=models.DateTimeField(null=True)
-    modified=models.DateTimeField(null=True)
     
 
+class BookCover(models.Model):
+    bookcode=models.ForeignKey('Book', on_delete=models.CASCADE)
+    cover=models.ImageField(upload_to='book_covers/')
+    created=models.DateTimeField(null=True)
+    
+    
 class Category(models.Model):
     code=models.CharField(max_length=15,unique=True,null=False)
     content=models.CharField(max_length=50)  
