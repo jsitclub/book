@@ -14,7 +14,7 @@ class Book(models.Model):
     created=models.DateTimeField(null=True)
 
 class BookCover(models.Model):
-    code=models.ForeignKey('Book', on_delete=models.CASCADE,default="")
+    code=models.OneToOneField('Book', on_delete=models.CASCADE,default="")
     cover=models.ImageField(upload_to='book_covers/')
     created=models.DateTimeField(null=True)
 

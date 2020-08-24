@@ -4,7 +4,7 @@ from .models import *
 
 from bs4 import BeautifulSoup as bs 
 import requests
-from urllib.request import urlretrieve #그림파일 저장
+
     
 ##===============================
 
@@ -84,10 +84,16 @@ def setBookInfo(request):
     
     
     bookid = Book.objects.get(isbn=isbnNo).id
-    print(bookid)
+    #print(bookid)
     
     #커버 다운로드 및 저장
     imgurl = soup.find('div',{"class":'thumb_type'}).find('a').find('img')['src']
+        
+    
+    result = request.urlretrieve(self.image_url)
+    BookCover(cover=File(open(result[0], 'rb'))
+    BookCover.save()
+    
     
     urlretrieve( imgurl , bookid+'.jpg') #주소, 파일경로+파일명+확장자
    
