@@ -25,7 +25,7 @@ SECRET_KEY = 'e2n(m=^1(vwgr^qk3&ae+lbj!(sxm5+7&oo-60uk6%tr7xys-8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['book-vhnep.run.goorm.io']
+ALLOWED_HOSTS = ['readbook.run.goorm.io']
 
 
 # Application definition
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Member',
     'Book',
+    
 ]
 
 MIDDLEWARE = [
@@ -124,8 +126,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
-#Media Files
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-MEDIA_URL='/media/'
-

@@ -4,13 +4,15 @@ from .models import *
 
 from bs4 import BeautifulSoup as bs 
 import requests
+import json
 
     
 ##===============================
 
 # Create your views here.
 def index(request):
-    return HttpResponse("hello")
+    #return HttpResponse("hello")
+    return render(request,"Book/index.html")
 
 
 
@@ -87,15 +89,15 @@ def setBookInfo(request):
     #print(bookid)
     
     #커버 다운로드 및 저장
-    imgurl = soup.find('div',{"class":'thumb_type'}).find('a').find('img')['src']
+    # imgurl = soup.find('div',{"class":'thumb_type'}).find('a').find('img')['src']
         
     
-    result = request.urlretrieve(self.image_url)
-    BookCover(cover=File(open(result[0], 'rb'))
-    BookCover.save()
+    # result = request.urlretrieve(self.image_url)
+    # BookCover(cover=File(open(result[0], 'rb'))
+    # BookCover.save()
     
     
-    urlretrieve( imgurl , bookid+'.jpg') #주소, 파일경로+파일명+확장자
+    # urlretrieve( imgurl , bookid+'.jpg') #주소, 파일경로+파일명+확장자
    
     
     
@@ -183,4 +185,27 @@ def GetSubCategory(category):
 
 #===============================
 
+
+def findBook_kakao(request):
+    
+    url="https://dapi.kakao.com/v2/search/web"
+    queryString={"query":"딥워크"}
+    header={"Authorization":"KakaoAK"}
+    result=requests.get(url,headers=header,params=queryString)
+    result=json.loads(result.text)
+    print(type(result),result)
+    return render(request,"Book/findBook_kakao.html",result)
+  
+
+def findBook_naver(request):
+    
+    
+    url="https://dapi.kakao.com/v2/search/web"
+    queryString={"query":"딥워크"}
+    header={"Authorization":"KakaoAK"}
+    result=requests.get(url,headers=header,params=queryString)
+    result=json.loads(result.text)
+    print(type(result),result)
+    return render(request,"Book/findBook_naver.html",result)
+  
 
