@@ -1,0 +1,33 @@
+<html>
+    <head>
+        
+        
+    </head>
+    
+    <body>
+        
+        <h1> 책찾기1 </h1>
+         {% for book in items %}
+            <h1>
+             title: {{book.title}}<br>  
+             contents: {{book.link}}<br> 
+             image:{{book.image}}<br> 
+             author:{{book.author}}<br> 
+             publisher : {{book.publisher}}<br> 
+             pubdate : {{book.pubdate}}<br> 
+             isbn : {{book.isbn}}<br> 
+             description : {{book.discription}}<br> 
+                
+                 <input type="text">
+        <input type="button">
+        </h1>
+        {% endfor %}
+        
+        
+       
+       
+        
+        
+    </body>
+</html>
+    
