@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from BookReader.__codes import *
 from .models import *
 
 from bs4 import BeautifulSoup as bs 
@@ -200,7 +202,7 @@ def findBook_kakao(request):
 def findBook_naver(request):
     url="https://openapi.naver.com/v1/search/book.json"
     queryString={"query":"9791160504439"}
-    header={"X-Naver-Client-Id":"GhTLijPLHP8mQrHypDEO" , "X-Naver-Client-Secret":"4jYFcSswJD"}
+    header={"X-Naver-Client-Id":NAVER_CLIENT_ID , "X-Naver-Client-Secret":NAVER_CLIENT_SECRET}
     
     result=requests.get(url,headers=header,params=queryString)
     result=json.loads(result.text)

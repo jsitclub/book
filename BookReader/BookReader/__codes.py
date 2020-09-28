@@ -1,0 +1,8 @@
+DB_USER="django"
+DB_PASSWORD="pswd"
+
+KEY_KAKAO="KakaoAK 15e23f3861a0eafe4ec4a70b8d63eeac"
+
+NAVER_CLIENT_ID="GhTLijPLHP8mQrHypDEO"
+NAVER_CLIENT_SECRET="4jYFcSswJD"
+    
